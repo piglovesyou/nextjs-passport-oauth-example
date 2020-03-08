@@ -1,15 +1,8 @@
-import { NextApiResponse, NextApiRequest } from 'next'
-import withPassport, { passport } from '../../../lib/withPassport'
+import passport from '../../../lib/passport'
+import composePassport from "../../../lib/composePassport";
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  const { provider } = req.query
-  if (!provider) {
-    return { statusCode: 404 }
-  }
-
-  passport.authenticate(provider)(req, res, (...args) => {
-    console.log('passport authenticated', args)
-  })
+export default function handle(req, res) {
+  composePassport(
+      passport.authenticate(req.query.provider)
+  )()(req, res);
 }
-
-export default withPassport(handler)
