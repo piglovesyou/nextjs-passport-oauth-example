@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppInitialProps } from 'next/app';
 import { NextPage, } from 'next';
+import redirect from 'micro-redirect';
 
 export interface UserIdentity {
   id: number
@@ -18,12 +19,12 @@ const IdentityContext = React.createContext<UserIdentity>(
 
 const loginPage = '/auth/login';
 
-async function identifyUser(ctx): Promise<UserIdentity | undefined> {
+export async function identifyUser(ctx): Promise<UserIdentity | null> {
   const isSSR = Boolean(ctx.req);
   if (isSSR) {
     const composePassport = require('./composePassport');
-    const [ proxiedReq, proxiedRes ] = await composePassport.initializePassport(ctx.req, ctx.res);
-    if (!proxiedReq.user) return proxiedRes.redirect(loginPage);
+    const [ proxiedReq ] = await composePassport.initializePassport(ctx.req, ctx.res);
+    if (!proxiedReq.user) return null;
     return proxiedReq.user;
   } else {
     // Reuse initial identity result
@@ -48,6 +49,7 @@ const withIdentity = (PageComponent: NextPage | any) => {
       }
 
       const user = await identifyUser(ctx);
+      if (!user) redirect(ctx.res, 302, loginPage);
 
       return {user,  ...appProps };
     }
