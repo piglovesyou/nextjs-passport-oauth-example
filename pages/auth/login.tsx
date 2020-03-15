@@ -1,6 +1,11 @@
+import { NextPage } from "next";
 import React from 'react'
+import { identifyUser } from "../../lib/withIdentity";
+import redirect from 'micro-redirect';
 
-const Login = () => (
+const homePage = '/';
+
+const Login: NextPage = () => (
   <main>
     <p>Log in to use</p>
     <p>
@@ -8,5 +13,11 @@ const Login = () => (
     </p>
   </main>
 )
+
+Login.getInitialProps = async (ctx) => {
+  const user = await identifyUser(ctx);
+  if (user) redirect(ctx.res, 302, homePage);
+  return {};
+}
 
 export default Login
