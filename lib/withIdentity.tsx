@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AppInitialProps } from 'next/app';
-import { NextPage, } from 'next';
+import { NextPage, NextPageContext, } from 'next';
 import redirect from 'micro-redirect';
 
 export interface UserIdentity {
@@ -19,7 +19,8 @@ const IdentityContext = React.createContext<UserIdentity>(
 
 const loginPage = '/auth/login';
 
-export async function identifyUser(ctx): Promise<UserIdentity | null> {
+// This is a function which's supposed to be called in "getInitialProps" in Next components.
+export async function isomorphicIdentifyUser(ctx: NextPageContext): Promise<UserIdentity | null> {
   const isSSR = Boolean(ctx.req);
   if (isSSR) {
     const composePassport = require('./composePassport');
@@ -38,7 +39,7 @@ const withIdentity = (PageComponent: NextPage | any) => {
   return class IdentityProvider extends React.Component<IdentityProviderProps> {
     static displayName = `IdentityProvider(MyApp)`;
 
-    static async getInitialProps(ctx): Promise<IdentityProviderProps> {
+    static async getInitialProps(ctx: NextPageContext): Promise<IdentityProviderProps> {
 
       // Get inner app's props
       let appProps: AppInitialProps;
@@ -48,7 +49,7 @@ const withIdentity = (PageComponent: NextPage | any) => {
         appProps = { pageProps: {} };
       }
 
-      const user = await identifyUser(ctx);
+      const user = await isomorphicIdentifyUser(ctx);
       if (!user) redirect(ctx.res, 302, loginPage);
 
       return {user,  ...appProps };

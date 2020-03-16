@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import React from 'react'
-import { identifyUser } from "../../lib/withIdentity";
+import { isomorphicIdentifyUser } from "../../lib/withIdentity";
 import redirect from 'micro-redirect';
 
 const homePage = '/';
@@ -15,7 +15,7 @@ const Login: NextPage = () => (
 )
 
 Login.getInitialProps = async (ctx) => {
-  const user = await identifyUser(ctx);
+  const user = await isomorphicIdentifyUser(ctx);
   if (user) redirect(ctx.res, 302, homePage);
   return {};
 }
