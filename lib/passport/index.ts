@@ -1,7 +1,7 @@
 import passport from 'passport'
 import { Profile } from "passport-github";
-import { UserIdentity } from "../withIdentity";
 import github from './github'
+import { UserIdentity } from '../types';
 
 passport.use(github)
 

@@ -1,5 +1,8 @@
 import React from 'react'
-import withIdentity, { useIdentity } from '../lib/withIdentity'
+import { GetServerSideProps } from "next"
+import { useIdentity, withIdentity, authenticate } from '../lib/authenticate'
+
+export const getServerSideProps: GetServerSideProps = authenticate()
 
 export default withIdentity(() => {
   const identity = useIdentity()
