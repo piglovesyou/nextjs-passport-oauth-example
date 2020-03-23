@@ -14,6 +14,5 @@ const composePassport = compose(
 
 export default composePassport;
 
-const initializePassport = composePassport();
+export const initializePassport = composePassport();
 
-export { initializePassport }

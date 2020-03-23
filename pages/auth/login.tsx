@@ -1,7 +1,5 @@
-import { NextPage } from "next";
 import React from 'react'
-import { isomorphicIdentifyUser } from "../../lib/withIdentity";
-import redirect from 'micro-redirect';
+import { GetServerSideProps, NextPage } from "next";
 
 const homePage = '/';
 
@@ -14,10 +12,10 @@ const Login: NextPage = () => (
   </main>
 )
 
-Login.getInitialProps = async (ctx) => {
-  const user = await isomorphicIdentifyUser(ctx);
-  if (user) redirect(ctx.res, 302, homePage);
-  return {};
-}
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const [ req, res ] = await require('../../lib/composePassport').initializePassport(ctx.req, ctx.res);
+  if (req.user) res.redirect(homePage);
+  return {props: {}}
+};
 
 export default Login

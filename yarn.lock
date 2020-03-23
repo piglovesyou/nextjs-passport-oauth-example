@@ -2832,10 +2832,10 @@ flatten@^1.0.2:
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
-flow-middleware@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/flow-middleware/-/flow-middleware-0.2.1.tgz#fc73bf6fa8713553bd304a28f37fd7b6d78469f2"
-  integrity sha512-KcWkF1Yq/IDJnTsN/WqQe4LgL9h97to7YF+GcTWppOSwqs5StyrPvsNv7pBOI5tnAbCbwumZ7TQif9UYwCPOiQ==
+flow-middleware@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/flow-middleware/-/flow-middleware-0.2.2.tgz#fa58f3e52e5ef185e53b78ea87bff4a152cd2670"
+  integrity sha512-w32AeHUoupaBxXHOKaK8INcSSeGnYlV85FLCC8gJhn1iAfjygT6FcQOdMs6chHqzd9YEPygWHzqZJx1elEeJfQ==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
