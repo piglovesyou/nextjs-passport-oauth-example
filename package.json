@@ -26,6 +26,7 @@
     "@types/passport-github": "^1.1.5",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
+    "empty": "^0.10.1",
     "typescript": "^3.8.3"
   }
 }

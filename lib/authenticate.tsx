@@ -23,7 +23,8 @@ const IdentityContext = React.createContext<UserIdentity>(
 export const authenticate = (getServerSidePropsInner: GetServerSideProps = async () => ({ props: {} })) => {
 
   const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const [ req, res ] = await require('./composePassport').initializePassport(ctx.req, ctx.res);
+    const composePassport = await import('./composePassport');
+    const [ req, res ] = await composePassport.initializePassport(ctx.req, ctx.res);
     if (!req.user) {
       res.redirect(loginPage);
       return { props: {} };
