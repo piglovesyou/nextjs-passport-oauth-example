@@ -1,8 +1,8 @@
 import passport from '../../../lib/passport'
-import composePassport from "../../../lib/composePassport";
+import middlewares from "../../../lib/middlewares";
 
 export default function handle(req, res) {
-  composePassport(
+  middlewares(
       passport.authenticate(req.query.provider)
   )()(req, res);
 }

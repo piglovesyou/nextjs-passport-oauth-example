@@ -2,7 +2,7 @@ import { compose } from 'flow-middleware';
 import cookieSession from "cookie-session";
 import passport from "./passport";
 
-const composePassport = compose(
+const middlewares = compose(
     cookieSession({
       name: 'passportSession',
       signed: false,
@@ -12,7 +12,7 @@ const composePassport = compose(
     passport.session(),
 );
 
-export default composePassport;
+export default middlewares;
 
-export const initializePassport = composePassport();
+export const initialize = middlewares();
 

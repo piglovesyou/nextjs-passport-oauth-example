@@ -5,7 +5,7 @@ module.exports = {
 
     // Suppress warnings
     if (!isServer) {
-      const serverSideModules = ['lib/composePassport']
+      const serverSideModules = ['lib/middlewares']
       serverSideModules.forEach(rel => {
         config.resolve.alias[path.join(__dirname, rel)] = 'empty'
       })

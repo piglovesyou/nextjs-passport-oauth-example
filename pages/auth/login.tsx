@@ -13,7 +13,8 @@ const Login: NextPage = () => (
 )
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const [ req, res ] = await require('../../lib/composePassport').initializePassport(ctx.req, ctx.res);
+  const {initialize} = await import('../../lib/middlewares');
+  const [ req, res ] = await initialize(ctx.req, ctx.res);
   if (req.user) res.redirect(homePage);
   return {props: {}}
 };
